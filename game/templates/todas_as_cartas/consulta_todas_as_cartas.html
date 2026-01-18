@@ -1,0 +1,162 @@
+{% extends 'home/home.html' %}
+{% load static %}
+
+{% block content %}
+
+<main class="container py-5 flex-grow-1">
+    <div class="d-flex align-items-center justify-content-between mb-3">
+        <h1 class="h3 mb-0">Todas as Cartas</h1>
+        <span class="text-secondary small">{{ systems|length }} opções</span>
+    </div>
+
+    <div class="row g-3">
+        <div class="col-lg-12 col-md-12">
+        <div class="card bg-black text-light border border-secondary h-100 rounded-4">
+            <div class="card-header card-header-tabs card-header-primary">
+                <div class="nav-tabs-navigation">
+                    <div class="nav-tabs-wrapper float-left">
+                        <strong class="nav-tabs-title">TODAS AS CARTAS</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body table-responsive">
+                <form id="form-cards" action="#" method="POST" autocomplete="off">
+                    {% csrf_token %}
+                        <h3>Lista de Cartas</h3>
+                </form>
+                {% if resultados %}
+                    <form id="form" action="#" method="POST" autocomplete="off">
+                        <div class="tab-content bg-black text-light">
+                            <table class="table table-hover bg-black text-light">
+                                <thead class="text-header bg-black text-light">
+                                    <tr>
+                                        <th width="">ID</th>
+                                        <th width="">Nome</th>
+                                        <th width="" class="text-center">Potência</th>
+                                        <th width="" class="text-center">Habilidade</th>
+                                        <th width="" class="text-center">Razão</th>
+                                        <th width="" class="text-center">Esperança</th>
+                                        <th width="" class="text-center">Alma</th>
+                                        <th width="" class="text-center">Vontade</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for a in resultados %}
+                                        <tr>
+                                            <td>{{ a.get_id }}</td>
+                                            <td>{{ a.get_nome }}</td>
+                                            <td class="text-center">{{ a.get_pot }}</td>
+                                            <td class="text-center">{{ a.get_hab }}</td>
+                                            <td class="text-center">{{ a.get_raz }}</td>
+                                            <td class="text-center">{{ a.get_esp }}</td>
+                                            <td class="text-center">{{ a.get_alm }}</td>
+                                            <td class="text-center">{{ a.get_von }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </form>
+                {% else %}
+                    <p style="margin-top: 20px;">Não existem Cartas.</p>
+                {% endif %}
+                {% if total_de_cartas %}
+                    <p style="margin-top: 20px;">Total de Cartas = {{ total_de_cartas }}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+<!--        {% for s in systems %}-->
+<!--            <div class="col-12 col-sm-6 col-lg-4">-->
+<!--                <a href="{% if s.url %}{{ s.url }}{% endif %}" title="{% if s.desc %}{{ s.desc }}{% endif %}" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-html="true" data-bs-title="{% if s.desc %}{{ s.desc }}{% endif %}">-->
+<!--                    <div class="card bg-black text-light border border-secondary h-100 rounded-4">-->
+<!--                        <div class="card-body d-flex flex-column">-->
+<!--                            <div class="d-flex text-center justify-content-between align-items-start mb-2">-->
+<!--                                <h5 class="card-title text-center fw-bold mb-0">{{ s.title }}</h5>-->
+<!--                            </div>-->
+<!--                            <div class="d-flex gap-2">-->
+<!--                                {% if s.badge %}-->
+<!--                                    <span class="badge text-bg-primary">{{ s.badge }}</span>-->
+<!--                                {% endif %}-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </a>-->
+<!--            </div>-->
+<!--        {% empty %}-->
+<!--            <div class="col-12">-->
+<!--                <div class="alert alert-secondary bg-black border border-secondary text-light">-->
+<!--                    Nenhum sistema configurado ainda.-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        {% endfor %}-->
+    </div>
+</main>
+
+<!--<div class="row">-->
+<!--    <div class="col-lg-12 col-md-12">-->
+<!--        <div class="card">-->
+<!--            <div class="card-header card-header-tabs card-header-primary">-->
+<!--                <div class="nav-tabs-navigation">-->
+<!--                    <div class="nav-tabs-wrapper float-left">-->
+<!--                        <strong class="nav-tabs-title">TODAS AS CARTAS</strong>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            <div class="card-body table-responsive">-->
+<!--                <form id="form-cards" action="#" method="POST" autocomplete="off">-->
+<!--                    {% csrf_token %}-->
+<!--                        <h3>Lista de Cartas</h3>-->
+<!--                </form>-->
+<!--                {% if resultados %}-->
+<!--                    <form id="form" action="#" method="POST" autocomplete="off">-->
+<!--                        <div class="tab-content">-->
+<!--                            <table class="table table-hover">-->
+<!--                                <thead class="text-header">-->
+<!--                                    <tr>-->
+<!--                                        <th width="">ID</th>-->
+<!--                                        <th width="">Nome</th>-->
+<!--                                        <th width="" class="text-center">Potência</th>-->
+<!--                                        <th width="" class="text-center">Habilidade</th>-->
+<!--                                        <th width="" class="text-center">Razão</th>-->
+<!--                                        <th width="" class="text-center">Esperança</th>-->
+<!--                                        <th width="" class="text-center">Alma</th>-->
+<!--                                        <th width="" class="text-center">Vontade</th>-->
+<!--                                    </tr>-->
+<!--                                </thead>-->
+<!--                                <tbody>-->
+<!--                                    {% for a in resultados %}-->
+<!--                                        <tr>-->
+<!--                                            <td>{{ a.get_id }}</td>-->
+<!--                                            <td>{{ a.get_nome }}</td>-->
+<!--                                            <td class="text-center">{{ a.get_pot }}</td>-->
+<!--                                            <td class="text-center">{{ a.get_hab }}</td>-->
+<!--                                            <td class="text-center">{{ a.get_raz }}</td>-->
+<!--                                            <td class="text-center">{{ a.get_esp }}</td>-->
+<!--                                            <td class="text-center">{{ a.get_alm }}</td>-->
+<!--                                            <td class="text-center">{{ a.get_von }}</td>-->
+<!--                                        </tr>-->
+<!--                                    {% endfor %}-->
+<!--                                </tbody>-->
+<!--                            </table>-->
+<!--                        </div>-->
+<!--                    </form>-->
+<!--                {% else %}-->
+<!--                    <p style="margin-top: 20px;">Não existem Cartas.</p>-->
+<!--                {% endif %}-->
+<!--                {% if total_de_cartas %}-->
+<!--                    <p style="margin-top: 20px;">Total de Cartas = {{ total_de_cartas }}</p>-->
+<!--                {% endif %}-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+{% endblock %}
+
+{% block javascript %}
+    <!-- Carrega o Javascript comum -->
+    <script type="text/javascript" src="{% static 'lgpd/js/consulta_todas_as_cartas.js' %}?v={% now 'U' %}"></script>
+{% endblock %}
